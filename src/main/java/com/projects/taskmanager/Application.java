@@ -1,13 +1,13 @@
-package com.projects.task_list_service;
+package com.projects.taskmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TaskListServiceApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskListServiceApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
