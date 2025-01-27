@@ -1,8 +1,11 @@
 package com.projects.taskmanager.infraestructure.dtos;
 
-public interface TaskDto {
-  String id = "";
-  String name = "";
-  String date = "";
-  boolean reminder = false;
+import lombok.Data;
+
+@Data
+public class TaskDto {
+  private String id;
+  private String name;
+  private String date;
+  private boolean reminder;
 }

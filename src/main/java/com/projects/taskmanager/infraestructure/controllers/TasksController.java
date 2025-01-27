@@ -1,5 +1,6 @@
 package com.projects.taskmanager.infraestructure.controllers;
 
+import com.projects.taskmanager.adapters.controllers.TaskControllerAdapter;
 import com.projects.taskmanager.infraestructure.dtos.TaskDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,26 +11,35 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TasksController {
 
+  private final TaskControllerAdapter adapter;
+
+  public TasksController(TaskControllerAdapter adapter) {
+    this.adapter = adapter;
+  }
+
   @PostMapping
-  public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto task) {
-    return ResponseEntity.ok(task);
+  public ResponseEntity<TaskDto> createTask(
+    @RequestBody TaskDto dto
+  ) {
+    return ResponseEntity.ok(this.adapter.createTask(dto));
   }
 
   @GetMapping
   public List<TaskDto> getAllTasks() {
-    return null;
+    return this.adapter.getAllTasks();
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<TaskDto> updateTask(
-    @PathVariable String id,
-    @RequestBody TaskDto task
-  ) {
-    return ResponseEntity.ok(task);
+  public ResponseEntity<TaskDto> updateTask(@PathVariable String id, @RequestBody TaskDto task) {
+    return null;
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteTask(@PathVariable String id) {
+  public ResponseEntity<Void> deleteTask(
+    @PathVariable String id
+  ) {
+    this.adapter.deleteTask(id);
     return ResponseEntity.noContent().build();
   }
+
 }
