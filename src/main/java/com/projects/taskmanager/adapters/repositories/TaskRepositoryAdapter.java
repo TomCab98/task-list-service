@@ -5,18 +5,16 @@ import com.projects.taskmanager.domain.models.Task;
 import com.projects.taskmanager.domain.ports.ITaskServicePort;
 import com.projects.taskmanager.infraestructure.repositories.TaskRepository;
 import com.projects.taskmanager.infraestructure.repositories.entities.TaskEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
 
-  private final TaskRepository repository;
-
-  public TaskRepositoryAdapter(TaskRepository repository) {
-    this.repository = repository;
-  }
+  @Autowired
+  private TaskRepository repository;
 
   @Override
   public Task createTask(Task task) {

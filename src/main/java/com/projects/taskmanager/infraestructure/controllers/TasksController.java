@@ -2,6 +2,7 @@ package com.projects.taskmanager.infraestructure.controllers;
 
 import com.projects.taskmanager.adapters.controllers.TaskControllerAdapter;
 import com.projects.taskmanager.infraestructure.dtos.TaskDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +12,8 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TasksController {
 
-  private final TaskControllerAdapter adapter;
-
-  public TasksController(TaskControllerAdapter adapter) {
-    this.adapter = adapter;
-  }
+  @Autowired
+  private TaskControllerAdapter adapter;
 
   @PostMapping
   public ResponseEntity<TaskDto> createTask(
