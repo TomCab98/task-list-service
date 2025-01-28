@@ -77,4 +77,18 @@ public class TaskControllerAdapter implements ITaskServicePort<TaskDto> {
     this.deleteTaskService.delete(id);
   }
 
+  @Override
+  public TaskDto findById(String id) {
+    Task task = this.findTaskService.findById(id);
+
+    TaskDto dto;
+    try {
+      dto = TaskControllerMapper.INSTANCE.toDto(task);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map Task to Taskdto " + task.toString());
+    }
+
+    return dto;
+  }
+
 }

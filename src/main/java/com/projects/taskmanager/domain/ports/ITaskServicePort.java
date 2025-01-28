@@ -11,4 +11,5 @@ public interface ITaskServicePort<MODEL> {
 
   void deleteTask(String id);
 
+  MODEL findById(String id);
 }

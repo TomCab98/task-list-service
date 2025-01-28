@@ -2,6 +2,7 @@ package com.projects.taskmanager.adapters.repositories;
 
 import com.projects.taskmanager.adapters.mappers.TaskRepositoryMapper;
 import com.projects.taskmanager.domain.exceptions.MappingException;
+import com.projects.taskmanager.domain.exceptions.TicketNotFoundException;
 import com.projects.taskmanager.domain.models.Task;
 import com.projects.taskmanager.domain.ports.ITaskServicePort;
 import com.projects.taskmanager.infraestructure.repositories.TaskRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
@@ -60,5 +62,22 @@ public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
   @Override
   public void deleteTask(String id) {
     this.repository.deleteById(id);
+  }
+
+  @Override
+  public Task findById(String id) {
+    Optional<TaskEntity> entity = this.repository.findById(id);
+    if (entity.isEmpty()) {
+      throw new TicketNotFoundException("Not found task with id " + id);
+    }
+
+    Task task;
+    try {
+      task = TaskRepositoryMapper.INSTANCE.toDomain(entity.get());
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map TaskEntity to Task");
+    }
+
+    return task;
   }
 }
