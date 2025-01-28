@@ -1,6 +1,7 @@
 package com.projects.taskmanager.domain.usecases;
 
 import com.projects.taskmanager.adapters.repositories.TaskRepositoryAdapter;
+import com.projects.taskmanager.domain.exceptions.DatabaseAccessException;
 
 public class DeleteTaskService {
   private final TaskRepositoryAdapter repositoryAdapter;
@@ -10,6 +11,11 @@ public class DeleteTaskService {
   }
 
   public void delete(String id) {
-    repositoryAdapter.deleteTask(id);
+    try {
+      repositoryAdapter.deleteTask(id);
+    } catch (Exception e) {
+      throw new DatabaseAccessException("Fail deleting the task from database " + id);
+    }
+
   }
 }

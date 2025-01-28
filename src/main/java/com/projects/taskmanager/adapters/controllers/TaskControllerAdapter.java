@@ -2,6 +2,7 @@ package com.projects.taskmanager.adapters.controllers;
 
 import com.projects.taskmanager.adapters.mappers.TaskControllerMapper;
 import com.projects.taskmanager.adapters.repositories.TaskRepositoryAdapter;
+import com.projects.taskmanager.domain.exceptions.MappingException;
 import com.projects.taskmanager.domain.models.Task;
 import com.projects.taskmanager.domain.ports.ITaskServicePort;
 import com.projects.taskmanager.domain.usecases.CreateTaskService;
@@ -34,14 +35,36 @@ public class TaskControllerAdapter implements ITaskServicePort<TaskDto> {
 
   @Override
   public TaskDto createTask(TaskDto dto) {
-    Task created = this.createTaskService.create(TaskControllerMapper.INSTANCE.toDomain(dto));
-    return TaskControllerMapper.INSTANCE.toDto(created);
+    Task domain;
+    try {
+      domain = TaskControllerMapper.INSTANCE.toDomain(dto);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map Taskdto to Task " + dto.toString());
+    }
+
+    Task taskCreated = this.createTaskService.create(domain);
+
+    TaskDto response;
+    try {
+      response = TaskControllerMapper.INSTANCE.toDto(taskCreated);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map Task to TaskDto " + taskCreated.toString());
+    }
+
+    return response;
   }
 
   @Override
   public List<TaskDto> getAllTasks() {
     List<Task> tasks = this.findTaskService.findAll();
-    return tasks.stream().map(TaskControllerMapper.INSTANCE::toDto).toList();
+
+    List<TaskDto> dtos;
+    try {
+      dtos = tasks.stream().map(TaskControllerMapper.INSTANCE::toDto).toList();
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map the task list " + tasks.toString());
+    }
+    return dtos;
   }
 
   @Override
