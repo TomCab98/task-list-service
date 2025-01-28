@@ -1,32 +1,55 @@
 package com.projects.taskmanager.adapters.repositories;
 
 import com.projects.taskmanager.adapters.mappers.TaskRepositoryMapper;
+import com.projects.taskmanager.domain.exceptions.MappingException;
 import com.projects.taskmanager.domain.models.Task;
 import com.projects.taskmanager.domain.ports.ITaskServicePort;
 import com.projects.taskmanager.infraestructure.repositories.TaskRepository;
 import com.projects.taskmanager.infraestructure.repositories.entities.TaskEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
 
-  private final TaskRepository repository;
-
-  public TaskRepositoryAdapter(TaskRepository repository) {
-    this.repository = repository;
-  }
+  @Autowired
+  private TaskRepository repository;
 
   @Override
   public Task createTask(Task task) {
-    TaskEntity created = this.repository.save(TaskRepositoryMapper.INSTANCE.toEntity(task));
-    return TaskRepositoryMapper.INSTANCE.toDomain(created);
+    TaskEntity entity;
+    try {
+      entity = TaskRepositoryMapper.INSTANCE.toEntity(task);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map Task to EntityTask " + task.toString());
+    }
+
+    TaskEntity created = this.repository.save(entity);
+
+    Task response;
+    try {
+      response = TaskRepositoryMapper.INSTANCE.toDomain(created);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map EntityTask to Task " + created.toString());
+    }
+
+    return response;
   }
 
   @Override
   public List<Task> getAllTasks() {
-    return this.repository.findAll().stream().map(TaskRepositoryMapper.INSTANCE::toDomain).toList();
+    List<TaskEntity> entities = this.repository.findAll();
+
+    List<Task> tasks;
+    try {
+      tasks = entities.stream().map(TaskRepositoryMapper.INSTANCE::toDomain).toList();
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map the task list " + entities);
+    }
+
+    return tasks;
   }
 
   @Override
