@@ -4,7 +4,7 @@ import com.projects.taskmanager.adapters.mappers.TaskControllerMapper;
 import com.projects.taskmanager.adapters.repositories.TaskRepositoryAdapter;
 import com.projects.taskmanager.domain.exceptions.MappingException;
 import com.projects.taskmanager.domain.models.Task;
-import com.projects.taskmanager.domain.ports.ITaskServicePort;
+import com.projects.taskmanager.domain.ports.ITaskControllerPort;
 import com.projects.taskmanager.domain.usecases.CreateTaskService;
 import com.projects.taskmanager.domain.usecases.DeleteTaskService;
 import com.projects.taskmanager.domain.usecases.FindTaskService;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class TaskControllerAdapter implements ITaskServicePort<TaskDto> {
+public class TaskControllerAdapter implements ITaskControllerPort<TaskDto> {
 
   @Autowired
   private TaskRepositoryAdapter repository;
@@ -34,7 +34,7 @@ public class TaskControllerAdapter implements ITaskServicePort<TaskDto> {
   private DeleteTaskService deleteTaskService;
 
   @Override
-  public TaskDto createTask(TaskDto dto) {
+  public TaskDto create(TaskDto dto) {
     Task domain;
     try {
       domain = TaskControllerMapper.INSTANCE.toDomain(dto);
@@ -55,7 +55,7 @@ public class TaskControllerAdapter implements ITaskServicePort<TaskDto> {
   }
 
   @Override
-  public List<TaskDto> getAllTasks() {
+  public List<TaskDto> getAll() {
     List<Task> tasks = this.findTaskService.findAll();
 
     List<TaskDto> dtos;
@@ -68,12 +68,28 @@ public class TaskControllerAdapter implements ITaskServicePort<TaskDto> {
   }
 
   @Override
-  public TaskDto updateTask(String id, TaskDto task) {
-    return null;
+  public TaskDto update(String id, TaskDto criteria) {
+    Task partial;
+    try {
+      partial = TaskControllerMapper.INSTANCE.toDomain(criteria);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map TaskDto to Task " + criteria.toString());
+    }
+
+    Task updated = this.updateTaskService.update(id, partial);
+
+    TaskDto response;
+    try {
+      response = TaskControllerMapper.INSTANCE.toDto(updated);
+    } catch (Exception e) {
+      throw new MappingException("Erro trying to map Task to TaskDto " + updated.toString());
+    }
+
+    return response;
   }
 
   @Override
-  public void deleteTask(String id) {
+  public void delete(String id) {
     this.deleteTaskService.delete(id);
   }
 

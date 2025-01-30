@@ -17,12 +17,12 @@ public class TasksController {
 
   @PostMapping
   public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto dto) {
-    return ResponseEntity.ok(this.adapter.createTask(dto));
+    return ResponseEntity.ok(this.adapter.create(dto));
   }
 
   @GetMapping
   public List<TaskDto> getAllTasks() {
-    return this.adapter.getAllTasks();
+    return this.adapter.getAll();
   }
 
   @GetMapping("/{id}")
@@ -32,12 +32,12 @@ public class TasksController {
 
   @PutMapping("/{id}")
   public ResponseEntity<TaskDto> updateTask(@PathVariable String id, @RequestBody TaskDto task) {
-    return null;
+    return ResponseEntity.ok(this.adapter.update(id, task));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteTask(@PathVariable String id) {
-    this.adapter.deleteTask(id);
+    this.adapter.delete(id);
     return ResponseEntity.noContent().build();
   }
 }
