@@ -3,22 +3,23 @@ package com.projects.taskmanager.adapters.repositories;
 import com.projects.taskmanager.adapters.mappers.TaskRepositoryMapper;
 import com.projects.taskmanager.domain.exceptions.MappingException;
 import com.projects.taskmanager.domain.models.Task;
-import com.projects.taskmanager.domain.ports.ITaskServicePort;
+import com.projects.taskmanager.domain.ports.ITaskRepositoryPort;
 import com.projects.taskmanager.infraestructure.repositories.TaskRepository;
 import com.projects.taskmanager.infraestructure.repositories.entities.TaskEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
-public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
+public class TaskRepositoryAdapter implements ITaskRepositoryPort<Task> {
 
   @Autowired
   private TaskRepository repository;
 
   @Override
-  public Task createTask(Task task) {
+  public Task create(Task task) {
     TaskEntity entity;
     try {
       entity = TaskRepositoryMapper.INSTANCE.toEntity(task);
@@ -39,7 +40,7 @@ public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
   }
 
   @Override
-  public List<Task> getAllTasks() {
+  public List<Task> getAll() {
     List<TaskEntity> entities = this.repository.findAll();
 
     List<Task> tasks;
@@ -53,12 +54,20 @@ public class TaskRepositoryAdapter implements ITaskServicePort<Task> {
   }
 
   @Override
-  public Task updateTask(String id, Task task) {
-    return null;
+  public void delete(String id) {
+    this.repository.deleteById(id);
   }
 
   @Override
-  public void deleteTask(String id) {
-    this.repository.deleteById(id);
+  public Optional<Task> findById(String id) {
+    Optional<TaskEntity> entity = this.repository.findById(id);
+    Optional<Task> task;
+    try {
+      task = TaskRepositoryMapper.INSTANCE.toDomain(entity);
+    } catch (Exception e) {
+      throw new MappingException("Error trying to map TaskEntity to Task");
+    }
+
+    return task;
   }
 }

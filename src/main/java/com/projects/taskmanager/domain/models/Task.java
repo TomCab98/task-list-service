@@ -10,4 +10,8 @@ public class Task {
   private String name;
   private LocalDate date;
   private boolean reminder;
+
+  public boolean getReminder() {
+    return this.reminder;
+  }
 }
