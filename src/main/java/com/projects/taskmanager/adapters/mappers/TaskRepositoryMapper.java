@@ -5,13 +5,14 @@ import com.projects.taskmanager.infraestructure.repositories.entities.TaskEntity
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
 import java.util.Optional;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface TaskRepositoryMapper {
   TaskRepositoryMapper INSTANCE = Mappers.getMapper(TaskRepositoryMapper.class);
 
-  default Optional<TaskEntity> toDto(Optional<Task> task) {
+  default Optional<TaskEntity> toEntity(Optional<Task> task) {
     return task.map(this::toEntity);
   }
 
@@ -22,4 +23,8 @@ public interface TaskRepositoryMapper {
   TaskEntity toEntity(Task task);
 
   Task toDomain(TaskEntity dto);
+
+  default List<Task> toDomainList(List<TaskEntity> tasks) {
+    return tasks.stream().map(this::toDomain).toList();
+  }
 }

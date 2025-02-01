@@ -1,73 +1,43 @@
 package com.projects.taskmanager.adapters.repositories;
 
 import com.projects.taskmanager.adapters.mappers.TaskRepositoryMapper;
-import com.projects.taskmanager.domain.exceptions.MappingException;
 import com.projects.taskmanager.domain.models.Task;
 import com.projects.taskmanager.domain.ports.ITaskRepositoryPort;
 import com.projects.taskmanager.infraestructure.repositories.TaskRepository;
 import com.projects.taskmanager.infraestructure.repositories.entities.TaskEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Component
 public class TaskRepositoryAdapter implements ITaskRepositoryPort<Task> {
-
-  @Autowired
-  private TaskRepository repository;
+  private final TaskRepository repository;
+  private final TaskRepositoryMapper mapper;
 
   @Override
   public Task create(Task task) {
-    TaskEntity entity;
-    try {
-      entity = TaskRepositoryMapper.INSTANCE.toEntity(task);
-    } catch (Exception e) {
-      throw new MappingException("Error trying to map Task to EntityTask " + task.toString());
-    }
-
-    TaskEntity created = this.repository.save(entity);
-
-    Task response;
-    try {
-      response = TaskRepositoryMapper.INSTANCE.toDomain(created);
-    } catch (Exception e) {
-      throw new MappingException("Error trying to map EntityTask to Task " + created.toString());
-    }
-
-    return response;
+    TaskEntity entity = mapper.toEntity(task);
+    TaskEntity created = repository.save(entity);
+    return mapper.toDomain(created);
   }
 
   @Override
   public List<Task> getAll() {
-    List<TaskEntity> entities = this.repository.findAll();
-
-    List<Task> tasks;
-    try {
-      tasks = entities.stream().map(TaskRepositoryMapper.INSTANCE::toDomain).toList();
-    } catch (Exception e) {
-      throw new MappingException("Error trying to map the task list " + entities);
-    }
-
-    return tasks;
+    List<TaskEntity> tasks = repository.findAll();
+    return mapper.toDomainList(tasks);
   }
 
   @Override
   public void delete(String id) {
-    this.repository.deleteById(id);
+    repository.deleteById(id);
   }
 
   @Override
   public Optional<Task> findById(String id) {
-    Optional<TaskEntity> entity = this.repository.findById(id);
-    Optional<Task> task;
-    try {
-      task = TaskRepositoryMapper.INSTANCE.toDomain(entity);
-    } catch (Exception e) {
-      throw new MappingException("Error trying to map TaskEntity to Task");
-    }
-
-    return task;
+    Optional<TaskEntity> entity = repository.findById(id);
+    return mapper.toDomain(entity);
   }
 }

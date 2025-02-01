@@ -22,8 +22,8 @@ public class TaskBeanConfig {
   }
 
   @Bean
-  public DeleteTaskService deleteTaskService(TaskRepositoryAdapter repository) {
-    return new DeleteTaskService(repository);
+  public DeleteTaskService deleteTaskService(TaskRepositoryAdapter repository, FindTaskService findTaskService) {
+    return new DeleteTaskService(repository, findTaskService);
   }
 
   @Bean
