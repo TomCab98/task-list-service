@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class FindTaskService {
-  private final ITaskRepositoryPort<Task> repositoryAdapter;
+  private final ITaskRepositoryPort<Task> repository;
 
-  public FindTaskService(ITaskRepositoryPort<Task> repositoryAdapter) {
-    this.repositoryAdapter = repositoryAdapter;
+  public FindTaskService(ITaskRepositoryPort<Task> repository) {
+    this.repository = repository;
   }
 
   public List<Task> findAll() {
     try {
-      return this.repositoryAdapter.getAll();
+      return this.repository.getAll();
     } catch (Exception e) {
       throw new DatabaseAccessException("Fail obtaining tasks from database");
     }
@@ -26,7 +26,7 @@ public class FindTaskService {
   public Task findById(String id) {
     Optional<Task> task;
     try {
-      task = this.repositoryAdapter.findById(id);
+      task = this.repository.findById(id);
     } catch (Exception e) {
       throw new DatabaseAccessException("Fail obtaining task with id from database");
     }
@@ -36,5 +36,10 @@ public class FindTaskService {
     }
 
     return task.get();
+  }
+
+  public boolean existById(String id) {
+    Optional<Task> task = this.repository.findById(id);
+    return task.isPresent();
   }
 }

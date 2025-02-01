@@ -9,8 +9,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface TaskControllerMapper {
   TaskControllerMapper INSTANCE = Mappers.getMapper(TaskControllerMapper.class);
 
@@ -37,4 +38,8 @@ public interface TaskControllerMapper {
 
   @Mapping(source = "date", target = "date", qualifiedByName = "stringToLocalDate")
   Task toDomain(TaskDto dto);
+
+  default List<TaskDto> toDtoList(List<Task> tasks) {
+    return tasks.stream().map(this::toDto).toList();
+  }
 }

@@ -1,23 +1,23 @@
 package com.projects.taskmanager.domain.usecases;
 
-import com.projects.taskmanager.adapters.repositories.TaskRepositoryAdapter;
 import com.projects.taskmanager.domain.exceptions.IllegalArgumentException;
 import com.projects.taskmanager.domain.exceptions.TicketNotFoundException;
 import com.projects.taskmanager.domain.models.Task;
+import com.projects.taskmanager.domain.ports.ITaskRepositoryPort;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.Optional;
 
 public class UpdateTaskService {
-  private final TaskRepositoryAdapter repositoryAdapter;
+  private final ITaskRepositoryPort<Task> repository;
 
-  public UpdateTaskService(TaskRepositoryAdapter repositoryAdapter) {
-    this.repositoryAdapter = repositoryAdapter;
+  public UpdateTaskService(ITaskRepositoryPort<Task> repository) {
+    this.repository = repository;
   }
 
   public Task update(String id, Task criteria) {
-    Optional<Task> existTask = this.repositoryAdapter.findById(id);
+    Optional<Task> existTask = this.repository.findById(id);
     if (existTask.isEmpty()) {
       throw new TicketNotFoundException("Not found task with id " + id);
     }
@@ -38,6 +38,6 @@ public class UpdateTaskService {
       }
     }
 
-    return this.repositoryAdapter.create(task);
+    return this.repository.create(task);
   }
 }
