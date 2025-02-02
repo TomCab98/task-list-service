@@ -2,6 +2,7 @@ package com.projects.taskmanager.infraestructure.controllers;
 
 import com.projects.taskmanager.adapters.controllers.TaskControllerAdapter;
 import com.projects.taskmanager.infraestructure.dtos.TaskDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class TasksController {
   private TaskControllerAdapter adapter;
 
   @PostMapping
-  public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto dto) {
+  public ResponseEntity<TaskDto> createTask(@Valid @RequestBody TaskDto dto) {
     return ResponseEntity.ok(this.adapter.create(dto));
   }
 
@@ -31,7 +32,7 @@ public class TasksController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<TaskDto> updateTask(@PathVariable String id, @RequestBody TaskDto task) {
+  public ResponseEntity<TaskDto> updateTask(@PathVariable String id, @Valid @RequestBody TaskDto task) {
     return ResponseEntity.ok(this.adapter.update(id, task));
   }
 
