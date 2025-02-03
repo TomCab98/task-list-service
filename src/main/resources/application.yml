@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: task-list-service
+  profiles:
+    active: dev
