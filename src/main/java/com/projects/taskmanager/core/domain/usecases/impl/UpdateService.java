@@ -20,7 +20,7 @@ public class UpdateService<M, ID> implements IUpdateService<M, ID> {
   public M update(ID id, M criteria) {
     Optional<M> existModel = repository.findById(id);
     if (existModel.isEmpty()) {
-      throw new TicketNotFoundException("Not found task with id " + id);
+      throw new TicketNotFoundException("Not found domain with id " + id);
     }
 
     M model = existModel.get();
@@ -35,7 +35,7 @@ public class UpdateService<M, ID> implements IUpdateService<M, ID> {
           field.set(model, newValue);
         }
       } catch (Exception e) {
-        throw new IllegalArgumentException("Error updating model field: " + field.getName() + e);
+        throw new IllegalArgumentException("Error updating model field: " + field.getName() + e.getMessage());
       }
     }
 

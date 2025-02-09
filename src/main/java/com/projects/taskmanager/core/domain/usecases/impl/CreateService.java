@@ -16,7 +16,7 @@ public class CreateService<M, ID> implements ICreateService<M> {
     try {
       return repository.create(model);
     } catch (Exception e) {
-      throw new DatabaseAccessException("Fail saving in database " + model.toString());
+      throw new DatabaseAccessException("Fail saving in database " + model.toString() + e.getMessage());
     }
   }
 }

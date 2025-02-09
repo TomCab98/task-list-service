@@ -23,7 +23,7 @@ public class DeleteService<M, ID> implements IDeleteService<ID> {
     try {
       this.repository.delete(id);
     } catch (Exception e) {
-      throw new DatabaseAccessException("Fail deleting the task from database " + id);
+      throw new DatabaseAccessException("Fail deleting the domain from database " + id + e.getMessage());
     }
 
   }

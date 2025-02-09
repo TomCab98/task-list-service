@@ -4,13 +4,11 @@ import com.projects.taskmanager.core.adapters.mappers.RepositoryMapper;
 import com.projects.taskmanager.core.domain.ports.IRepositoryPort;
 import com.projects.taskmanager.core.infraestructure.repositories.IRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Component
 public class RepositoryAdapter<M, E, ID> implements IRepositoryPort<M, ID> {
   private final IRepository<E, ID> repository;
   private final RepositoryMapper<M, E> mapper;
