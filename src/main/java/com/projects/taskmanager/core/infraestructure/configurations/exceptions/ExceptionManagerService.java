@@ -1,9 +1,9 @@
-package com.projects.taskmanager.tasks.infraestructure.configuration.exceptions;
+package com.projects.taskmanager.core.infraestructure.configurations.exceptions;
 
-import com.projects.taskmanager.tasks.domain.exceptions.DatabaseAccessException;
-import com.projects.taskmanager.tasks.domain.exceptions.ExceptionManager;
-import com.projects.taskmanager.tasks.domain.exceptions.IllegalArgumentException;
-import com.projects.taskmanager.tasks.domain.exceptions.TicketNotFoundException;
+import com.projects.taskmanager.core.domain.exceptions.DatabaseAccessException;
+import com.projects.taskmanager.core.domain.exceptions.ExceptionManager;
+import com.projects.taskmanager.core.domain.exceptions.IllegalArgumentException;
+import com.projects.taskmanager.core.domain.exceptions.TicketNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

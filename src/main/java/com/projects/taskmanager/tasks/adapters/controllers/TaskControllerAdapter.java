@@ -15,8 +15,11 @@ import org.springframework.stereotype.Component;
 public class TaskControllerAdapter extends ControllerAdapter<Task, TaskDto, String> implements ITaskControllerPort {
 
   public TaskControllerAdapter(
-    CreateTaskService createService, UpdateTaskService updateService, FindTaskService findService,
-    DeleteTaskService deleteService, TaskControllerMapper mapper
+    CreateTaskService createService,
+    UpdateTaskService updateService,
+    FindTaskService findService,
+    DeleteTaskService deleteService,
+    TaskControllerMapper mapper
   ) {
     super(createService, updateService, findService, deleteService, mapper);
   }

@@ -20,7 +20,7 @@ public class FindService<M, ID> implements IFindService<M, ID> {
     try {
       return this.repository.getAll();
     } catch (Exception e) {
-      throw new DatabaseAccessException("Fail obtaining tasks from database");
+      throw new DatabaseAccessException("Fail obtaining domain from database" + e.getMessage());
     }
   }
 
@@ -30,7 +30,7 @@ public class FindService<M, ID> implements IFindService<M, ID> {
     try {
       domain = this.repository.findById(id);
     } catch (Exception e) {
-      throw new DatabaseAccessException("Fail obtaining domain with id from database");
+      throw new DatabaseAccessException("Fail obtaining domain with id from database" + e.getMessage());
     }
 
     if (domain.isEmpty()) {
