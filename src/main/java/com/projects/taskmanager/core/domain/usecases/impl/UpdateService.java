@@ -1,7 +1,7 @@
 package com.projects.taskmanager.core.domain.usecases.impl;
 
 import com.projects.taskmanager.core.domain.exceptions.IllegalArgumentException;
-import com.projects.taskmanager.core.domain.exceptions.TicketNotFoundException;
+import com.projects.taskmanager.core.domain.exceptions.NotFoundException;
 import com.projects.taskmanager.core.domain.ports.IRepositoryPort;
 import com.projects.taskmanager.core.domain.usecases.IUpdateService;
 
@@ -20,7 +20,7 @@ public class UpdateService<M, ID> implements IUpdateService<M, ID> {
   public M update(ID id, M criteria) {
     Optional<M> existModel = repository.findById(id);
     if (existModel.isEmpty()) {
-      throw new TicketNotFoundException("Not found domain with id " + id);
+      throw new NotFoundException("Not found domain with id " + id);
     }
 
     M model = existModel.get();

@@ -1,7 +1,7 @@
 package com.projects.taskmanager.core.domain.usecases.impl;
 
 import com.projects.taskmanager.core.domain.exceptions.DatabaseAccessException;
-import com.projects.taskmanager.core.domain.exceptions.TicketNotFoundException;
+import com.projects.taskmanager.core.domain.exceptions.NotFoundException;
 import com.projects.taskmanager.core.domain.ports.IRepositoryPort;
 import com.projects.taskmanager.core.domain.usecases.IDeleteService;
 
@@ -17,7 +17,7 @@ public class DeleteService<M, ID> implements IDeleteService<ID> {
   @Override
   public void delete(ID id) {
     if (!findService.existById(id)) {
-      throw new TicketNotFoundException("Not found task with id " + id);
+      throw new NotFoundException("Not found task with id " + id);
     }
 
     try {
