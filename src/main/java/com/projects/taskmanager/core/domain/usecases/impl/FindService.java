@@ -1,7 +1,7 @@
 package com.projects.taskmanager.core.domain.usecases.impl;
 
 import com.projects.taskmanager.core.domain.exceptions.DatabaseAccessException;
-import com.projects.taskmanager.core.domain.exceptions.TicketNotFoundException;
+import com.projects.taskmanager.core.domain.exceptions.NotFoundException;
 import com.projects.taskmanager.core.domain.ports.IRepositoryPort;
 import com.projects.taskmanager.core.domain.usecases.IFindService;
 
@@ -34,7 +34,7 @@ public class FindService<M, ID> implements IFindService<M, ID> {
     }
 
     if (domain.isEmpty()) {
-      throw new TicketNotFoundException("Not found domain with id " + id);
+      throw new NotFoundException("Not found domain with id " + id);
     }
 
     return domain.get();

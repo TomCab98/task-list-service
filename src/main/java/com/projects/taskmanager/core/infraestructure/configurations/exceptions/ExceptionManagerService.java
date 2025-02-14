@@ -3,7 +3,7 @@ package com.projects.taskmanager.core.infraestructure.configurations.exceptions;
 import com.projects.taskmanager.core.domain.exceptions.DatabaseAccessException;
 import com.projects.taskmanager.core.domain.exceptions.ExceptionManager;
 import com.projects.taskmanager.core.domain.exceptions.IllegalArgumentException;
-import com.projects.taskmanager.core.domain.exceptions.TicketNotFoundException;
+import com.projects.taskmanager.core.domain.exceptions.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class ExceptionManagerService {
   private static final Map<Class<? extends Exception>, HttpStatus> EXCEPTION_STATUS_MAP = new HashMap<>();
 
   static {
-    EXCEPTION_STATUS_MAP.put(TicketNotFoundException.class, HttpStatus.NOT_FOUND);
+    EXCEPTION_STATUS_MAP.put(NotFoundException.class, HttpStatus.NOT_FOUND);
     EXCEPTION_STATUS_MAP.put(IllegalArgumentException.class, HttpStatus.BAD_REQUEST);
     EXCEPTION_STATUS_MAP.put(MethodArgumentNotValidException.class, HttpStatus.BAD_REQUEST);
     EXCEPTION_STATUS_MAP.put(DatabaseAccessException.class, HttpStatus.INTERNAL_SERVER_ERROR);
