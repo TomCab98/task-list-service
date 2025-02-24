@@ -14,16 +14,16 @@ public class RepositoryAdapter<M, E, ID> implements IRepositoryPort<M, ID> {
   private final RepositoryMapper<M, E> mapper;
 
   @Override
-  public M create(M task) {
-    E entity = mapper.toEntity(task);
+  public M create(M domain) {
+    E entity = mapper.toEntity(domain);
     E created = repository.save(entity);
     return mapper.toDomain(created);
   }
 
   @Override
   public List<M> getAll() {
-    List<E> tasks = repository.findAll();
-    return mapper.toDomainList(tasks);
+    List<E> domains = repository.findAll();
+    return mapper.toDomainList(domains);
   }
 
   @Override

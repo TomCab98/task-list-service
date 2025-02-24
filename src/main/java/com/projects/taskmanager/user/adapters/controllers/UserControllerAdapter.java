@@ -8,7 +8,7 @@ import com.projects.taskmanager.user.domain.usecases.CreateUserService;
 import com.projects.taskmanager.user.domain.usecases.DeleteUserService;
 import com.projects.taskmanager.user.domain.usecases.FindUserService;
 import com.projects.taskmanager.user.domain.usecases.UpdateUserService;
-import com.projects.taskmanager.user.infraestructure.dtos.UserDto;
+import com.projects.taskmanager.user.infrastructure.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
