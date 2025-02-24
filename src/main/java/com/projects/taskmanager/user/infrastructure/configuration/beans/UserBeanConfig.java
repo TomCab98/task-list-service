@@ -1,4 +1,4 @@
-package com.projects.taskmanager.user.infraestructure.configuration.beans;
+package com.projects.taskmanager.user.infrastructure.configuration.beans;
 
 import com.projects.taskmanager.user.adapters.repositories.UserRepositoryAdapter;
 import com.projects.taskmanager.user.domain.usecases.CreateUserService;

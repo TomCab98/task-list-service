@@ -1,9 +1,9 @@
-package com.projects.taskmanager.user.infraestructure.controllers;
+package com.projects.taskmanager.user.infrastructure.controllers;
 
 import com.projects.taskmanager.core.infraestructure.controllers.CoreController;
 import com.projects.taskmanager.user.adapters.controllers.UserControllerAdapter;
 import com.projects.taskmanager.user.domain.models.User;
-import com.projects.taskmanager.user.infraestructure.dtos.UserDto;
+import com.projects.taskmanager.user.infrastructure.dtos.UserDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
