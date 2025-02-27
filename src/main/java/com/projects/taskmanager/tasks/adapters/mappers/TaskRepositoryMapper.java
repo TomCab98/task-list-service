@@ -2,7 +2,7 @@ package com.projects.taskmanager.tasks.adapters.mappers;
 
 import com.projects.taskmanager.core.adapters.mappers.RepositoryMapper;
 import com.projects.taskmanager.tasks.domain.models.Task;
-import com.projects.taskmanager.tasks.infraestructure.repositories.entities.TaskEntity;
+import com.projects.taskmanager.tasks.infrastructure.repositories.entities.TaskEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

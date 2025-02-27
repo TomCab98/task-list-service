@@ -1,7 +1,7 @@
 package com.projects.taskmanager.core.adapters.repositories;
 
 import com.projects.taskmanager.core.adapters.mappers.RepositoryMapper;
-import com.projects.taskmanager.core.infraestructure.repositories.IRepository;
+import com.projects.taskmanager.core.infrastructure.repositories.IRepository;
 import com.projects.taskmanager.utils.TestObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

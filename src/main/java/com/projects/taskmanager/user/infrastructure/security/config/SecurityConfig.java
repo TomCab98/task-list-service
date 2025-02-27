@@ -2,6 +2,8 @@ package com.projects.taskmanager.user.infrastructure.security.config;
 
 
 import com.projects.taskmanager.user.infrastructure.dtos.PermissionEnum;
+import com.projects.taskmanager.user.infrastructure.security.JwtTokenValidator;
+import com.projects.taskmanager.user.infrastructure.security.JwtUtils;
 import com.projects.taskmanager.user.infrastructure.security.UserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,16 +17,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtUtils jwtUtils) throws Exception {
     return httpSecurity
       .csrf(AbstractHttpConfigurer::disable)
       .httpBasic(Customizer.withDefaults())
@@ -36,6 +39,7 @@ public class SecurityConfig {
 
         http.anyRequest().permitAll();
       })
+      .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
       .build();
   }
 
@@ -46,14 +50,13 @@ public class SecurityConfig {
 
   @Bean
   public AuthenticationProvider authenticationProvider(UserDetailServiceImpl userDetailService) {
-    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailService);
     provider.setPasswordEncoder(passwordEncoder());
-    provider.setUserDetailsService(userDetailService);
     return provider;
   }
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return NoOpPasswordEncoder.getInstance();
+    return new BCryptPasswordEncoder();
   }
 }

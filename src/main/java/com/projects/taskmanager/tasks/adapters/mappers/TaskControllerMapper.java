@@ -2,7 +2,7 @@ package com.projects.taskmanager.tasks.adapters.mappers;
 
 import com.projects.taskmanager.core.adapters.mappers.ControllerMapper;
 import com.projects.taskmanager.tasks.domain.models.Task;
-import com.projects.taskmanager.tasks.infraestructure.dtos.TaskDto;
+import com.projects.taskmanager.tasks.infrastructure.dtos.TaskDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

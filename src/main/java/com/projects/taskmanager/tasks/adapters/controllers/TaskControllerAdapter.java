@@ -8,7 +8,7 @@ import com.projects.taskmanager.tasks.domain.usecases.CreateTaskService;
 import com.projects.taskmanager.tasks.domain.usecases.DeleteTaskService;
 import com.projects.taskmanager.tasks.domain.usecases.FindTaskService;
 import com.projects.taskmanager.tasks.domain.usecases.UpdateTaskService;
-import com.projects.taskmanager.tasks.infraestructure.dtos.TaskDto;
+import com.projects.taskmanager.tasks.infrastructure.dtos.TaskDto;
 import org.springframework.stereotype.Component;
 
 @Component
