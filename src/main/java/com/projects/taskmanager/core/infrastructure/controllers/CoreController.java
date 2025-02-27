@@ -1,4 +1,4 @@
-package com.projects.taskmanager.core.infraestructure.controllers;
+package com.projects.taskmanager.core.infrastructure.controllers;
 
 import com.projects.taskmanager.core.adapters.controllers.ControllerAdapter;
 import jakarta.validation.Valid;

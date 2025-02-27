@@ -1,4 +1,4 @@
-package com.projects.taskmanager.tasks.infraestructure.repositories.entities;
+package com.projects.taskmanager.tasks.infrastructure.repositories.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

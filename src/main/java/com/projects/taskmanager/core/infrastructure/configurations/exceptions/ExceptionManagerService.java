@@ -1,9 +1,7 @@
-package com.projects.taskmanager.core.infraestructure.configurations.exceptions;
+package com.projects.taskmanager.core.infrastructure.configurations.exceptions;
 
-import com.projects.taskmanager.core.domain.exceptions.DatabaseAccessException;
-import com.projects.taskmanager.core.domain.exceptions.ExceptionManager;
 import com.projects.taskmanager.core.domain.exceptions.IllegalArgumentException;
-import com.projects.taskmanager.core.domain.exceptions.NotFoundException;
+import com.projects.taskmanager.core.domain.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +22,8 @@ public class ExceptionManagerService {
     EXCEPTION_STATUS_MAP.put(IllegalArgumentException.class, HttpStatus.BAD_REQUEST);
     EXCEPTION_STATUS_MAP.put(MethodArgumentNotValidException.class, HttpStatus.BAD_REQUEST);
     EXCEPTION_STATUS_MAP.put(DatabaseAccessException.class, HttpStatus.INTERNAL_SERVER_ERROR);
+    EXCEPTION_STATUS_MAP.put(BadCredentialsException.class, HttpStatus.UNAUTHORIZED);
+    EXCEPTION_STATUS_MAP.put(InvalidTokenException.class, HttpStatus.UNAUTHORIZED);
   }
 
   @ExceptionHandler(ExceptionManager.class)

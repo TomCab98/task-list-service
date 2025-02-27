@@ -2,7 +2,7 @@ package com.projects.taskmanager.core.adapters.repositories;
 
 import com.projects.taskmanager.core.adapters.mappers.RepositoryMapper;
 import com.projects.taskmanager.core.domain.ports.IRepositoryPort;
-import com.projects.taskmanager.core.infraestructure.repositories.IRepository;
+import com.projects.taskmanager.core.infrastructure.repositories.IRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

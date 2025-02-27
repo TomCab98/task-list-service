@@ -1,4 +1,4 @@
-package com.projects.taskmanager.tasks.infraestructure.dtos;
+package com.projects.taskmanager.tasks.infrastructure.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

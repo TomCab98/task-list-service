@@ -1,7 +1,7 @@
 package com.projects.taskmanager.core.infraestructure;
 
 import com.projects.taskmanager.core.adapters.controllers.ControllerAdapter;
-import com.projects.taskmanager.core.infraestructure.controllers.CoreController;
+import com.projects.taskmanager.core.infrastructure.controllers.CoreController;
 import com.projects.taskmanager.utils.TestObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

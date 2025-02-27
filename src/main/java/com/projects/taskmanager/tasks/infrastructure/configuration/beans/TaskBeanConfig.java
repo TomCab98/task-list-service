@@ -1,4 +1,4 @@
-package com.projects.taskmanager.tasks.infraestructure.configuration.beans;
+package com.projects.taskmanager.tasks.infrastructure.configuration.beans;
 
 import com.projects.taskmanager.tasks.adapters.repositories.TaskRepositoryAdapter;
 import com.projects.taskmanager.tasks.domain.usecases.CreateTaskService;

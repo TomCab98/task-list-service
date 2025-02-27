@@ -37,12 +37,18 @@ local development.
  ┃ ┣ 📂 main
  ┃ ┃ ┣ 📂 java
  ┃ ┃ ┃ ┣ 📂 com.projects.taskmanager
- ┃ ┃ ┃ ┃ ┣ 📂 adapters (Adapters and Mappers)
- ┃ ┃ ┃ ┃ ┣ 📂 domain (Models and Bussiness Logic)
- ┃ ┃ ┃ ┃ ┣ 📂 infrastructure
- ┃ ┃ ┃ ┃ ┃ ┣ 📂 controllers
- ┃ ┃ ┃ ┃ ┃ ┣ 📂 repositories
- ┃ ┃ ┃ ┃ ┃ ┣ 📂 config
+ ┃ ┃ ┃ ┃ ┣ 📂 core
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 adapters (Adapters and Mappers)
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 domain (Models and Bussiness Logic)
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 infrastructure (APIs, Repositories and Configurations)
+ ┃ ┃ ┃ ┃ ┣ 📂 tasks
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 adapters
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 domain
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 infrastructure
+ ┃ ┃ ┃ ┃ ┣ 📂 user
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 adapters
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 domain
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂 infrastructure
  ┃ ┃ ┣ 📂 resources
  ┃ ┃ ┃ ┣ 📜 application.yml
  ┃ ┃ ┃ ┣ 📜 application-dev.yml
