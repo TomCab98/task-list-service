@@ -21,6 +21,10 @@ public class RoleEntity {
   private RoleEnum role;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+  @JoinTable(
+    name = "role_permissions",
+    joinColumns = @JoinColumn(name = "role_id"),
+    inverseJoinColumns = @JoinColumn(name = "permission_id")
+  )
   private Set<PermissionEntity> permissionList = new HashSet<>();
 }

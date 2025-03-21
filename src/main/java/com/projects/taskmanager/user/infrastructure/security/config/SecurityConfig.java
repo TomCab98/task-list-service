@@ -33,9 +33,9 @@ public class SecurityConfig {
       .httpBasic(Customizer.withDefaults())
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(http -> {
-        http.requestMatchers(HttpMethod.GET, "/api/user").hasAuthority(PermissionEnum.READ.name());
-        http.requestMatchers(HttpMethod.POST, "/api/user").hasAuthority(PermissionEnum.CREATE.name());
-        http.requestMatchers(HttpMethod.PUT, "/api/user").hasAuthority(PermissionEnum.UPDATE.name());
+        http.requestMatchers(HttpMethod.GET, "/user").hasAuthority(PermissionEnum.READ.name());
+        http.requestMatchers(HttpMethod.PUT, "/user").hasAuthority(PermissionEnum.UPDATE.name());
+        http.requestMatchers(HttpMethod.DELETE, "/user").hasAuthority(PermissionEnum.UPDATE.name());
 
         http.anyRequest().permitAll();
       })

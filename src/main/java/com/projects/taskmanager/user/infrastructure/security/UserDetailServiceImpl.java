@@ -85,4 +85,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
   }
+
+  public String encodePassword(String password) {
+    return this.passwordEncoder.encode(password);
+  }
 }
