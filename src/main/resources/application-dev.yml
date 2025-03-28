@@ -13,7 +13,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
 logging:
   level:
     root: DEBUG
+security:
+  jwt:
+    key:
+      private: a7cd9a706ef86ecded8251625f9429f87fc91ca4ff7540c0f8a23c6da9a26bc5
+      expiration: 1800000
+    user:
+      generator: AUTH0JWT-BACKEND

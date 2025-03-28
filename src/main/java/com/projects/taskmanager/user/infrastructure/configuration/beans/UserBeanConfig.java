@@ -1,5 +1,6 @@
 package com.projects.taskmanager.user.infrastructure.configuration.beans;
 
+import com.projects.taskmanager.user.adapters.auth.UserAuthAdapter;
 import com.projects.taskmanager.user.adapters.repositories.UserRepositoryAdapter;
 import com.projects.taskmanager.user.domain.usecases.CreateUserService;
 import com.projects.taskmanager.user.domain.usecases.DeleteUserService;
@@ -12,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class UserBeanConfig {
 
   @Bean
-  public CreateUserService createUserService(UserRepositoryAdapter repository) {
-    return new CreateUserService(repository);
+  public CreateUserService createUserService(UserRepositoryAdapter repository, UserAuthAdapter auth) {
+    return new CreateUserService(repository, auth);
   }
 
   @Bean

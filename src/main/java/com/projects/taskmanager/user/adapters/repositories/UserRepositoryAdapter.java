@@ -40,5 +40,6 @@ public class UserRepositoryAdapter extends RepositoryAdapter<User, UserEntity, S
 
     UserEntity entity = mapper.toEntity(domain, roles);
     UserEntity created = userRepository.save(entity);
-    return mapper.toDomain(created);}
+    return mapper.toDomain(created);
+  }
 }

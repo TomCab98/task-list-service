@@ -15,5 +15,5 @@ public class PermissionEntity {
 
   @Column(name = "permission_name", unique = true, nullable = false, updatable = false)
   @Enumerated(EnumType.STRING)
-  private  PermissionEnum permission;
+  private PermissionEnum permission;
 }
