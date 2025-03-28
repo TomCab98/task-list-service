@@ -1,9 +1,6 @@
 package com.projects.taskmanager.task.infrastructure.dtos;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -19,6 +16,9 @@ public class TaskDto {
     regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(\\d{4})$", message = "Date must be in format 'dd-MM-yyyy'"
   )
   private String date;
+
+  @Null
+  private String userEmail;
 
   private boolean reminder;
 }

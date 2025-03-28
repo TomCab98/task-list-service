@@ -20,6 +20,6 @@ public class TaskEntity {
 
   private boolean reminder;
 
-  @Column(name = "user_id", updatable = false, nullable = false)
-  private String userId;
+  @Column(name = "user_email", updatable = false, nullable = false)
+  private String userEmail;
 }

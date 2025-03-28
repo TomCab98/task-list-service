@@ -33,9 +33,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
   private PasswordEncoder passwordEncoder;
 
   @Override
-  public UserDetails loadUserByUsername(String username) {
+  public UserDetails loadUserByUsername(String email) {
 
-    UserEntity userEntity = repository.findUserEntityByUsername(username)
+    UserEntity userEntity = repository.findUserEntityByEmail(email)
       .orElseThrow(() -> new NotFoundException("user not found"));
 
     List<SimpleGrantedAuthority> grantedAuthorityList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
       .forEach(permission -> grantedAuthorityList.add(new SimpleGrantedAuthority(permission.getPermission().name())));
 
     return new User(
-      userEntity.getUsername(),
+      userEntity.getName(),
       userEntity.getPassword(),
       userEntity.isEnabled(),
       userEntity.isAccountNoExpired(),
@@ -60,30 +60,30 @@ public class UserDetailServiceImpl implements UserDetailsService {
   }
 
   public AuthResponseDto login(AuthRequestDto request) {
-    String username = request.username();
+    String email = request.email();
     String password = request.password();
 
-    Authentication authentication = this.authenticate(username, password);
+    Authentication authentication = this.authenticate(email, password);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     String accessToken = jwtUtils.createToken(authentication);
 
     return new AuthResponseDto(
-      username,
+      email,
       "User login successfully",
       accessToken,
       true
     );
   }
 
-  public Authentication authenticate(String username, String password) {
-    UserDetails userDetails = this.loadUserByUsername(username);
+  public Authentication authenticate(String email, String password) {
+    UserDetails userDetails = this.loadUserByUsername(email);
 
     if (userDetails == null || !passwordEncoder.matches(password, userDetails.getPassword())) {
-      throw new BadCredentialsException("invalid username or password");
+      throw new BadCredentialsException("invalid email or password");
     }
 
-    return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
+    return new UsernamePasswordAuthenticationToken(email, userDetails.getPassword(), userDetails.getAuthorities());
   }
 
   public String encodePassword(String password) {

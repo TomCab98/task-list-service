@@ -33,14 +33,14 @@ public class JwtUtils {
   }
 
   public String createToken(Authentication authentication) {
-    String username = authentication.getPrincipal().toString();
+    String email = authentication.getPrincipal().toString();
     String authorities = authentication.getAuthorities()
       .stream()
       .map(GrantedAuthority::getAuthority)
       .collect(Collectors.joining(","));
 
     return Jwts.builder()
-      .subject(username)
+      .subject(email)
       .issuer(userGenerator)
       .issuedAt(new Date())
       .expiration(new Date(System.currentTimeMillis() + expirationTime))
@@ -69,7 +69,7 @@ public class JwtUtils {
     return decoded.getPayload().get(claimName);
   }
 
-  public String extractUsername(Jws<Claims> decoded) {
+  public String extractEmail(Jws<Claims> decoded) {
     return decoded.getPayload().getSubject();
   }
 }
