@@ -1,12 +1,30 @@
+server:
+  port: 8080
+
 spring:
   datasource:
-    url:
-    username:
-    password:
-    driver-class-name:
+    url: jdbc:mysql://mysql-tasklist:3306/task_list_service
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
 logging:
   level:
-    root:
+    root: INFO
+security:
+  jwt:
+    key:
+      private: a7cd9a706ef86ecded8251625f9429f87fc91ca4ff7540c0f8a23c6da9a26bc5
+      expiration: 1800000
+    user:
+      generator: AUTH0JWT-BACKEND
