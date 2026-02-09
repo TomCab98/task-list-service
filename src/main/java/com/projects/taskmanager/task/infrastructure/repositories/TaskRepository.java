@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TaskRepository extends IRepository<TaskEntity, String> {
+public interface TaskRepository extends IRepository<TaskEntity, Long> {
+
   List<TaskEntity> findByUserEmail(String userEmail);
-  Optional<TaskEntity> findByIdAndUserEmail(String id, String userEmail);
-  void deleteByUserEmail(String userEmail);
+
+  Optional<TaskEntity> findByIdAndUserEmail(Long id, String userEmail);
+
+  void deleteByIdAndUserEmail(Long id, String userEmail);
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-public class UserController extends CoreController<User, UserDto, String> {
+public class UserController extends CoreController<User, UserDto, Long> {
 
   public UserController(UserControllerAdapter adapter) {
     super(adapter);

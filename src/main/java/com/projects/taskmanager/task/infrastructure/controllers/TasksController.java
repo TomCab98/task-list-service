@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/task")
-public class  TasksController extends CoreController<Task, TaskDto, String> {
+public class  TasksController extends CoreController<Task, TaskDto, Long> {
 
   public TasksController(TaskControllerAdapter adapter) {
     super(adapter);

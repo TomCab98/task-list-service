@@ -1,22 +1,30 @@
 package com.projects.taskmanager.task.infrastructure.repositories.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tasks")
 public class TaskEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   private String name;
 
-  private LocalDate date;
+  private String description;
+
+  private LocalDate creationDate;
+
+  private LocalDate reminderDate;
 
   private boolean reminder;
 

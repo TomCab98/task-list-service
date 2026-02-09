@@ -1,4 +1,4 @@
-package com.projects.taskmanager.core.infraestructure;
+package com.projects.taskmanager.core.infrastructure.controller;
 
 import com.projects.taskmanager.core.adapters.controllers.ControllerAdapter;
 import com.projects.taskmanager.core.infrastructure.controllers.CoreController;

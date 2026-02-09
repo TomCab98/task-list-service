@@ -12,7 +12,7 @@ import com.projects.taskmanager.user.infrastructure.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserControllerAdapter extends ControllerAdapter<User, UserDto, String> implements IUserControllerPort {
+public class UserControllerAdapter extends ControllerAdapter<User, UserDto, Long> implements IUserControllerPort {
 
   public UserControllerAdapter(
     CreateUserService createService,

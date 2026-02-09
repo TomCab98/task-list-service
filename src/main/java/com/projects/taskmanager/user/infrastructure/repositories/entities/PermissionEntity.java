@@ -10,8 +10,8 @@ import lombok.Data;
 public class PermissionEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @Column(name = "permission_name", unique = true, nullable = false, updatable = false)
   @Enumerated(EnumType.STRING)

@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class TaskRepositoryAdapter extends RepositoryAdapter<Task, TaskEntity, String> implements ITaskRepositoryPort {
+public class TaskRepositoryAdapter extends RepositoryAdapter<Task, TaskEntity, Long> implements ITaskRepositoryPort {
+
   private final TaskRepositoryMapper mapper;
   private final TaskRepository repository;
 
@@ -29,22 +30,24 @@ public class TaskRepositoryAdapter extends RepositoryAdapter<Task, TaskEntity, S
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String userEmail = authentication.getName();
 
-    return mapper.toDomainList(repository.findByUserEmail(userEmail));
+    List<TaskEntity> entities = repository.findByUserEmail(userEmail);
+    return mapper.toDomainList(entities);
   }
 
   @Override
-  public void delete(String s) {
+  public void delete(Long id) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String userEmail = authentication.getName();
 
-    repository.deleteByUserEmail(userEmail);
+    repository.deleteByIdAndUserEmail(id, userEmail);
   }
 
   @Override
-  public Optional<Task> findById(String id) {
+  public Optional<Task> findById(Long id) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String userEmail = authentication.getName();
 
-    return mapper.toDomain(repository.findByIdAndUserEmail(id, userEmail));
+    Optional<TaskEntity> entity = repository.findByIdAndUserEmail(id, userEmail);
+    return mapper.toDomain(entity);
   }
 }

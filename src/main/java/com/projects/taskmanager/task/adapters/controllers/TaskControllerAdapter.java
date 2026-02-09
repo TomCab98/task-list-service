@@ -12,7 +12,7 @@ import com.projects.taskmanager.task.infrastructure.dtos.TaskDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TaskControllerAdapter extends ControllerAdapter<Task, TaskDto, String> implements ITaskControllerPort {
+public class TaskControllerAdapter extends ControllerAdapter<Task, TaskDto, Long> implements ITaskControllerPort {
 
   public TaskControllerAdapter(
     CreateTaskService createService,

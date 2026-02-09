@@ -11,7 +11,8 @@ import java.util.List;
 
 @Data
 public class UserDto {
-  private String id;
+
+  private Long id;
 
   @NotBlank(message = "The name cannot be blank")
   @Size(max = 100, min = 3, message = "The name cannot be longer than 100 characters and less than 3 characters.")

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface RoleRepository extends IRepository<RoleEntity, String> {
+public interface RoleRepository extends IRepository<RoleEntity, Long> {
 
   Set<RoleEntity> findByRoleIn(List<String> roles);
 }

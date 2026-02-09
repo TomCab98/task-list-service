@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
-public class UserRepositoryAdapter extends RepositoryAdapter<User, UserEntity, String> implements IUserRepositoryPort {
+public class UserRepositoryAdapter extends RepositoryAdapter<User, UserEntity, Long> implements IUserRepositoryPort {
 
   private final RoleRepository roleRepository;
   private final UserRepositoryMapper mapper;

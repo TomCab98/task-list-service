@@ -2,8 +2,8 @@ package com.projects.taskmanager.user.infrastructure.security;
 
 import com.projects.taskmanager.core.domain.exceptions.BadCredentialsException;
 import com.projects.taskmanager.core.domain.exceptions.NotFoundException;
-import com.projects.taskmanager.user.infrastructure.dtos.AuthRequestDto;
-import com.projects.taskmanager.user.infrastructure.dtos.AuthResponseDto;
+import com.projects.taskmanager.user.infrastructure.dtos.LoginRequestDto;
+import com.projects.taskmanager.user.infrastructure.dtos.LoginResponseDto;
 import com.projects.taskmanager.user.infrastructure.repositories.UserRepository;
 import com.projects.taskmanager.user.infrastructure.repositories.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     );
   }
 
-  public AuthResponseDto login(AuthRequestDto request) {
+  public LoginResponseDto login(LoginRequestDto request) {
     String email = request.email();
     String password = request.password();
 
@@ -68,7 +68,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     String accessToken = jwtUtils.createToken(authentication);
 
-    return new AuthResponseDto(
+    return new LoginResponseDto(
       email,
       "User login successfully",
       accessToken,

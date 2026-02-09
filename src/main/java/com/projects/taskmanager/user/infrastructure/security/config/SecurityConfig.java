@@ -7,7 +7,6 @@ import com.projects.taskmanager.user.infrastructure.security.JwtUtils;
 import com.projects.taskmanager.user.infrastructure.security.UserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,6 +15,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,18 +33,18 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtUtils jwtUtils) throws Exception {
     return httpSecurity
       .csrf(AbstractHttpConfigurer::disable)
+      .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
       .httpBasic(Customizer.withDefaults())
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(http -> {
+        http.requestMatchers("/auth/**").anonymous();
         http.requestMatchers("/task/**").authenticated();
-        http.requestMatchers(HttpMethod.GET, "/user/**").hasRole(RoleEnum.ADMIN.name());
-        http.requestMatchers(HttpMethod.DELETE, "/user").hasRole(RoleEnum.ADMIN.name());
-        http.requestMatchers(HttpMethod.PUT, "/user/**").hasRole(RoleEnum.ADMIN.name());
-        http.requestMatchers("/auth/login").anonymous();
-        http.requestMatchers(HttpMethod.POST, "/user/**").permitAll();
+        http.requestMatchers("/user/**").hasRole(RoleEnum.ADMIN.name());
+        http.anyRequest().permitAll();
       })
       .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
       .cors(Customizer.withDefaults())
+      .formLogin(AbstractHttpConfigurer::disable)
       .build();
   }
 
